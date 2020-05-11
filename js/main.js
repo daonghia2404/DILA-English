@@ -262,6 +262,110 @@ window.onload = () => {
   }
   gallery.init()
 
+  const validate = {
+    init:function(){
+      this.validate();
+    },
+    validate:function(){
+      const form = document.querySelector('form');
+      if (form === null) return;
+      const name = document.querySelector('form #name');
+      const errorName = document.querySelector('form #errorName');
+
+      const email = document.querySelector('form #email');
+      const errorEmail = document.querySelector('form #errorEmail');
+
+      const phone = document.querySelector('form #phone');
+      const errorPhone = document.querySelector('form #errorPhone');
+
+      const address = document.querySelector('form #address');
+      const errorAddress = document.querySelector('form #errorAddress');
+
+      function validateName(value) {
+        if (value.length === 0) {
+          errorName.innerHTML = 'Bạn phải nhập đầy đủ Họ tên !';
+          errorName.classList.remove('correct');
+          errorName.classList.add('not-correct');
+          return false;
+        }
+        else {
+          errorName.innerHTML = 'Hợp lệ !';
+          errorName.classList.remove('not-correct');
+          errorName.classList.add('correct');
+          return true;
+        }
+      }
+
+      function validateEmail(value) {
+        if (value.length === 0) {
+          errorEmail.innerHTML = 'Bạn phải nhập đầy đủ Email !';
+          errorEmail.classList.remove('correct');
+          errorEmail.classList.add('not-correct');
+          return false;
+        }
+        else if (!/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g.test(value)) {
+          errorEmail.innerHTML = 'Email không hợp lệ !';
+          errorEmail.classList.remove('correct');
+          errorEmail.classList.add('not-correct');
+        }
+        else {
+          errorEmail.innerHTML = 'Hợp lệ !';
+          errorEmail.classList.remove('not-correct');
+          errorEmail.classList.add('correct');
+          return true;
+        }
+      }
+
+      function validatePhone(value) {
+        if (value.length === 0) {
+          errorPhone.innerHTML = 'Bạn phải nhập đầy đủ Số điện thoại !';
+          errorPhone.classList.remove('correct');
+          errorPhone.classList.add('not-correct');
+          return false;
+        }
+        else if (!/^0[0-9]{9}$/g.test(value.replace(/\s|\-|\./g,''))) {
+          errorPhone.innerHTML = 'Số điện thoại không hợp lệ !';
+          errorPhone.classList.remove('correct');
+          errorPhone.classList.add('not-correct');
+          return false;
+        }
+        else {
+          errorPhone.innerHTML = 'Hợp lệ !';
+          errorPhone.classList.remove('not-correct');
+          errorPhone.classList.add('correct');
+          return true;
+        }
+      }
+
+      function validateAddress(value) {
+        if (value.length === 0) {
+          errorAddress.innerHTML = 'Bạn phải nhập đầy đủ Cơ sở !';
+          errorAddress.classList.remove('correct');
+          errorAddress.classList.add('not-correct');
+          return false;
+        }
+        else {
+          errorAddress.innerHTML = 'Hợp lệ !';
+          errorAddress.classList.remove('not-correct');
+          errorAddress.classList.add('correct');
+          return true;
+        }
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        validateName(name.value);
+        validateEmail(email.value);
+        validatePhone(phone.value);
+        validateAddress(address.value);
+        if (validateName(name.value) && validateEmail(email.value) && validatePhone(phone.value) && validateAddress(address.value)) {
+          alert('Success !')
+        }
+      })
+    }
+  }
+  validate.init();
+
   const owl = {
     init: function () {
       this.slider();
